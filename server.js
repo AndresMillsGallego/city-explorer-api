@@ -6,20 +6,30 @@ const express = require('express');
 
 const app = express();
 
+const cors = require('cors');
+
 const PORT = process.env.PORT || 3002;
 
-const cors = require('cors');
 app.use(cors());
 
 let weatherData = require('./data/weather.json');
 
 app.get('/weather', (request, response) => {
-  let searchQuery = request.query.searchQuery;
-  let cityLat = request.query.lat;
-  let cityLon = request.query.lon;
+  try {
+    let city = request.query.city;
+    // let lat = request.query.lat;
+    // let lon = request.query.lon;
 
-  let weatherObj = weatherData.find(obj => obj.city_name.toLowerCase() === searchQuery);
-  response.send(weatherObj, cityLat, cityLon);
+    let selectedCity = weatherData.find(obj => obj.city_name.toLowerCase() === city.toLowerCase());
+    let cityObj = selectedCity.data.map(day => {
+      return new Forecast(day);
+    });
+
+    response.send(cityObj);
+
+  } catch (error) {
+    response.status(500).send('Jigglypuff has sang a song, now you are asleep');
+  }
 });
 
 app.get('*', (request, response) => {
@@ -27,9 +37,9 @@ app.get('*', (request, response) => {
 });
 
 class Forecast {
-  constructor() {
-    this.date = date;
-    this.description = this.description;
+  constructor(day) {
+    this.date = day.datetime;
+    this.description = day.weather.description;
   }
 }
 
