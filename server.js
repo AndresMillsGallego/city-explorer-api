@@ -3,32 +3,42 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
 
-const cors = require('cors');
+app.use(cors());
 
 const PORT = process.env.PORT || 3002;
 
-app.use(cors());
+app.get('/', (request, response) => {
+  response.status(200).send('King Snorlax Approves');
+});
 
-let weatherData = require('./data/weather.json');
-
-app.get('/weather', (request, response) => {
+// app.get('/weather', async (request, response) => {
+//   try {
+//     let lat = request.query.lat;
+//     let lon = request.query.lon;
+//     const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lat=${lat}&lon=${lon}`;
+//     console.log(weatherUrl)
+//     response.send('happy')
+//   }
+// })
+app.get('/weather', async (request, response) => {
   try {
-    let city = request.query.city;
-    // let lat = request.query.lat;
-    // let lon = request.query.lon;
+    let lat = request.query.lat;
+    let lon = request.query.lon;
 
-    let selectedCity = weatherData.find(obj => obj.city_name.toLowerCase() === city.toLowerCase());
-    let cityObj = selectedCity.data.map(day => {
+    const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lat=${lat}&lon=${lon}`;
+    let weatherData = await axios.get(weatherUrl);
+    
+    let cityObj = weatherData.data.data.map(day => {
       return new Forecast(day);
-    });
-
+    })
     response.send(cityObj);
-
   } catch (error) {
-    response.status(500).send('Jigglypuff has sang a song, now you are asleep');
+    response.status(500).send('Jigglypuff has sang a song, now you are asleep')
   }
 });
 
@@ -42,6 +52,5 @@ class Forecast {
     this.description = day.weather.description;
   }
 }
-
 
 app.listen(PORT, () => console.log(`Jigglypuff loves ${PORT}`));
