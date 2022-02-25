@@ -9,7 +9,7 @@ async function getMovies (request, response) {
 
     const movieResponse = await axios.get(movieUrl);
     let movies = movieResponse.data.results.map((movie) => {
-      return new Movie(movie)
+      return new Movie(movie);
     });
     response.send(movies);
   } catch (error) {
