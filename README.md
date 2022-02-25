@@ -41,7 +41,7 @@ We used JavaScript as well as Node.js and Express.
 
 - Name of Feature: Refactor
 - Estimate time to complete:  I am not sure since I need to finish lab 08 still
-- Start time: 1:30pm
+- Start time: 
 - Finish time: 
 - Actual time needed to Complete: 
 
