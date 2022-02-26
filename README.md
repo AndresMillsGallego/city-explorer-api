@@ -10,6 +10,8 @@
 [Lab 08 Whiteboard Link](https://miro.com/app/live-embed/uXjVOK2U1ho=/?moveToViewport=-1676,-1807,3590,3669)
 
 ![Lab 09](/Lab09WRRC.png)
+
+![Lab 10](/Lab10WRRC.jpg)
 ## Overview
 
 The project for this week is the City Explorer app.  This component is the server that we are building.
@@ -44,6 +46,15 @@ We used JavaScript as well as Node.js and Express.
 - Start time: 4:45pm
 - Finish time: 5:40pm
 - Actual time needed to Complete: approx 1 hour 
+
+### Lab 09
+- Name of Feature: Performance
+- Estimate time to complete:  I am hoping an hour or two
+- Start time: 3:30pm
+- Finish time: 5:40pm
+- Actual time needed to Complete: approx. approx. 2 hours
+
+I did run into an issue where when connecting to local server it had to be http and NOT https!  
 
 ## Credit and Collaborations
 
