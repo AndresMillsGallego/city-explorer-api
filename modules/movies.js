@@ -4,8 +4,8 @@ const axios = require('axios');
 let cache = require('./cache');
 
 async function getMovies(request, response) {
-  let key = 'Moves-' + searchQuery;
   let searchQuery = request.query.searchQuery;
+  let key = 'Moves-' + searchQuery;
   let oneWeek = 1000 * 60 * 60 * 24 * 7;
   let movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`;
   try {
@@ -13,6 +13,7 @@ async function getMovies(request, response) {
       console.log('Cache Hit, Movie Time!');
       response.status(200).send(cache[key].data);
     } else {
+      console.log('Cache Miss');
       const movieResponse = await axios.get(movieUrl);
       let movies = movieResponse.data.results.map((movie) => {
         return new Movie(movie);

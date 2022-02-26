@@ -5,7 +5,7 @@ let cache = require('./cache');
 
 function getWeather(lat, lon) {
   const key = 'weather-' + lat + lon;
-  const weatherUrl = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_API_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
+  const weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_API_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
 
   let oneDay = 1000 * 60 * 60 *24;
 
